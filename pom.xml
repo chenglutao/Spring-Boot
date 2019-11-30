@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.0.RELEASE</version>
+    </parent>
+    <groupId>com.study</groupId>
+    <artifactId>spring-boot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>web-api</module>
+        <module>service</module>
+        <module>common</module>
+        <module>repository</module>
+    </modules>
+
+    <properties>
+        <skipTests>true</skipTests>
+        <java.version>1.8</java.version>
+        <guava.version>18.0</guava.version>
+        <shrio.version>1.4.0</shrio.version>
+        <mysql.version>5.1.46</mysql.version>
+        <druid.version>1.1.10</druid.version>
+        <lombok.version>1.16.16</lombok.version>
+        <mybatis.version>3.4.6</mybatis.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-codec.version>1.11</commons-codec.version>
+        <commons-email.version>1.5</commons-email.version>
+        <jackson-databind.version>2.8.3</jackson-databind.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <mybatis-spring-boot.version>1.3.2</mybatis-spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <profiles>
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>local-dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <jdbc.url><![CDATA[jdbc:mysql://127.0.0.1:3306/springbootdemo?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true]]></jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>123456</jdbc.password>
+                <datasource.initialSize>1</datasource.initialSize>
+                <datasource.minIdle>1</datasource.minIdle>
+                <datasource.maxActive>3</datasource.maxActive>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>${basedir}/src/main/resources/support/generatorConfig.xml</configurationFile> <!--此处是配置文件的位置-->
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
