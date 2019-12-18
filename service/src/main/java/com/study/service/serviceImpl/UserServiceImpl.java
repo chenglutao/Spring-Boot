@@ -5,7 +5,7 @@ import com.study.repository.entity.generate.User;
 import com.study.repository.entity.generate.UserExample;
 import com.study.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +23,38 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public User getName(String name) {
-        log.info("name----->{}", name);
-        if (StringUtils.isBlank(name)) {
+    public User detail(Integer id) {
+        log.info("id----->{}", id);
+        if (id == null) {
             return null;
         }
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
-        criteria.andNameEqualTo(name);
+        criteria.andIdEqualTo(id);
         List<User> users = userMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(users)){
+            return null;
+        }
         return users.get(0);
+    }
+
+    @Override
+    public void add(String name) {
+        User user = new User();
+        user.setName(name);
+        userMapper.insert(user);
+    }
+
+    @Override
+    public void update(Integer id, String name) {
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        userMapper.deleteByPrimaryKey(id);
     }
 }

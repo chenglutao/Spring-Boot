@@ -8,5 +8,8 @@ import com.study.repository.entity.generate.User;
  */
 public interface UserService {
 
-    User getName(String name);
+    User detail(Integer id);
+    void add(String name);
+    void update(Integer id, String name);
+    void delete(Integer id);
 }
