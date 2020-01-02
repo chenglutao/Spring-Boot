@@ -1,5 +1,6 @@
 package com.study.webapi.controller;
 
+import com.study.repository.entity.generate.User;
 import com.study.service.UserService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class MyController {
 
     @Autowired
     UserService userService;
+
 
     @PostMapping("/add")
     @ApiOperation(value = "添加用户", notes = "添加用户")
@@ -58,7 +60,19 @@ public class MyController {
     @ApiOperation(value = "获取用户详情", notes = "获取用户详情")
     @ApiImplicitParam(name = "id", value = "获取用户详情", required = true, dataType = "String", paramType = "query")
     public Object detail(@RequestParam("id") Integer id) {
-        return userService.detail(id);
+        User detail = userService.detail(id);
+        return detail;
     }
 
+    @GetMapping("email")
+    @ApiOperation(value = "邮件服务", notes = "邮件服务")
+    public Object email(){
+        try{
+            userService.asyncSendHtml();
+            return "ok";
+        } catch (Exception e){
+            return e.getMessage();
+        }
+
+    }
 }

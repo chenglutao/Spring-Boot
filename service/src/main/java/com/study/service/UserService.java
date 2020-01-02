@@ -12,4 +12,5 @@ public interface UserService {
     void add(String name);
     void update(Integer id, String name);
     void delete(Integer id);
+    void asyncSendHtml();
 }
