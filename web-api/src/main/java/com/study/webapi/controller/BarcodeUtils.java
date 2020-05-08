@@ -65,7 +65,7 @@ public class BarcodeUtils {
         bean.setModuleWidth(moduleWidth);
         bean.setBarHeight(3);
         bean.doQuietZone(true);
-        bean.setMsgPosition();
+      //  bean.setMsgPosition("");
         String format = "image/png";
         try {
             BitmapCanvasProvider canvas = new BitmapCanvasProvider(ous, format, dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
